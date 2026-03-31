@@ -1,0 +1,89 @@
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+
+const WHATSAPP = "https://wa.me/355686002212";
+const PHONE = "tel:+355686002212";
+const INSTAGRAM = "https://instagram.com/sundentalclinic__";
+
+function Navbar({ onBook }) {
+  return (
+    <nav className="flex justify-between items-center px-6 md:px-10 py-4 shadow-sm sticky top-0 bg-white z-50">
+      <h1 className="text-xl font-bold text-blue-600">Sun Dental</h1>
+      <div className="hidden md:flex gap-6 text-sm">
+        <a href="#services">Services</a>
+        <a href="#results">Results</a>
+        <a href="#about">About</a>
+        <a href="#reviews">Reviews</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div className="flex gap-3">
+        <a href={PHONE} className="text-sm">Call</a>
+        <button onClick={onBook} className="bg-blue-600 text-white px-4 py-2 rounded-xl">Book</button>
+      </div>
+    </nav>
+  );
+}
+
+function Hero({ onBook }) {
+  return (
+    <section className="py-24 px-6 text-center bg-gradient-to-br from-blue-50 to-white">
+      <motion.h1 initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} className="text-5xl md:text-6xl font-bold mb-6">
+        Smile With Confidence
+      </motion.h1>
+      <p className="text-lg mb-8 max-w-xl mx-auto">
+        Premium, pain-free dentistry in Tirana. Advanced technology. Natural results.
+      </p>
+      <div className="flex justify-center gap-4">
+        <button onClick={onBook} className="bg-blue-600 text-white px-6 py-3 rounded-2xl shadow">Book Appointment</button>
+        <a href={WHATSAPP} className="border border-blue-600 px-6 py-3 rounded-2xl">WhatsApp</a>
+      </div>
+    </section>
+  );
+}
+
+export default function SunDentalWebsite() {
+  const [open, setOpen] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    alert("Request sent! We will contact you shortly.");
+  };
+
+  return (
+    <div className="font-sans text-gray-800 bg-white">
+
+      {/* Sticky Buttons */}
+      <div className="fixed bottom-4 right-4 flex flex-col gap-3 z-50">
+        <a href={WHATSAPP} target="_blank" className="bg-green-500 text-white px-4 py-3 rounded-full shadow-lg">WhatsApp</a>
+        <a href={PHONE} className="bg-black text-white px-4 py-3 rounded-full shadow-lg">Call</a>
+      </div>
+
+      <Navbar onBook={() => setOpen(true)} />
+      <Hero onBook={() => setOpen(true)} />
+
+      {/* CONTACT */}
+      <section id="contact" className="py-20 px-6 max-w-4xl mx-auto text-center">
+        <h2 className="text-3xl font-semibold mb-6">Contact Us</h2>
+        <p className="mb-4">📞 +355 68 600 2212</p>
+        <p className="mb-4">📲 WhatsApp available</p>
+        <a href={INSTAGRAM} target="_blank" className="text-blue-600 underline">Follow us on Instagram</a>
+
+        <form onSubmit={handleSubmit} className="grid gap-4 mt-6">
+          <input required className="border p-3 rounded-xl" placeholder="Name" />
+          <input required className="border p-3 rounded-xl" placeholder="Phone" />
+          <textarea className="border p-3 rounded-xl" placeholder="Message" />
+          <button className="bg-blue-600 text-white py-3 rounded-xl">Send Request</button>
+        </form>
+      </section>
+
+      <footer className="bg-gray-900 text-white py-8 text-center">
+        <p>Sun Dental • Kodra e Diellit 2, Tirana</p>
+        <p className="mt-2">Phone: +355686002212</p>
+        <a href={INSTAGRAM} target="_blank" className="underline">Instagram</a>
+      </footer>
+
+    </div>
+  );
+}
